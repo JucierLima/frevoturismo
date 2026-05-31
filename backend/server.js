@@ -4,8 +4,6 @@ require('dotenv').config()
 
 const authRoutes = require('./src/routes/auth')
 const motoristasRoutes = require('./src/routes/motoristas')
-const rotasRoutes = require('./src/routes/rotas')
-const passeiosRoutes = require('./src/routes/passeios')
 
 const { sequelize } = require('./src/models')
 
@@ -18,20 +16,15 @@ app.use(cors({
 
 app.use(express.json())
 
-// Rotas da API
 app.use('/api/auth', authRoutes)
 app.use('/api/motoristas', motoristasRoutes)
-app.use('/api/rotas', rotasRoutes)
-app.use('/api/passeios', passeiosRoutes)
 
-// Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Frevo Turismo API rodando 🎭' })
 })
 
 const PORT = process.env.PORT || 3001
 
-// Sincroniza o banco e inicia o servidor
 sequelize.sync({ alter: true })
   .then(() => {
     console.log('✅ Banco de dados sincronizado')
