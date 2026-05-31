@@ -3,6 +3,7 @@ const cors = require('cors')
 require('dotenv').config()
 
 const authRoutes = require('./src/routes/auth')
+const motoristasRoutes = require('./src/routes/motoristas')
 
 const { sequelize } = require('./src/models')
 
@@ -16,6 +17,7 @@ app.use(cors({
 app.use(express.json())
 
 app.use('/api/auth', authRoutes)
+app.use('/api/motoristas', motoristasRoutes)
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Frevo Turismo API rodando 🎭' })
