@@ -1,4 +1,3 @@
- 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -8,6 +7,7 @@ import Register from './pages/Register'
 import Motoristas from './pages/Motoristas'
 import MotoristaDetalhe from './pages/MotoristaDetalhe'
 import Rotas from './pages/Rotas'
+import RotaDetalhe from './pages/RotaDetalhe'
 import Passeios from './pages/Passeios'
 import { AuthProvider } from './context/AuthContext'
 
@@ -25,6 +25,7 @@ function App() {
               <Route path="/motoristas" element={<Motoristas />} />
               <Route path="/motoristas/:id" element={<MotoristaDetalhe />} />
               <Route path="/rotas" element={<Rotas />} />
+              <Route path="/rotas/:id" element={<RotaDetalhe />} />
               <Route path="/passeios" element={<Passeios />} />
             </Routes>
           </main>
