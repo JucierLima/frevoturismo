@@ -5,6 +5,7 @@ require('dotenv').config()
 const authRoutes = require('./src/routes/auth')
 const motoristasRoutes = require('./src/routes/motoristas')
 const rotasRoutes = require('./src/routes/rotas')
+const passeiosRoutes = require('./src/routes/passeios')
 
 const { sequelize } = require('./src/models')
 
@@ -20,6 +21,7 @@ app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/motoristas', motoristasRoutes)
 app.use('/api/rotas', rotasRoutes)
+app.use('/api/passeios', passeiosRoutes)
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Frevo Turismo API rodando 🎭' })

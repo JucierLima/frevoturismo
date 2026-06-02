@@ -9,6 +9,9 @@ import MotoristaDetalhe from './pages/MotoristaDetalhe'
 import Rotas from './pages/Rotas'
 import RotaDetalhe from './pages/RotaDetalhe'
 import Passeios from './pages/Passeios'
+import PasseioDetalhe from './pages/PasseioDetalhe'
+import Favoritos from './pages/Favoritos'
+import Perfil from './pages/Perfil'
 import { AuthProvider } from './context/AuthContext'
 
 function App() {
@@ -27,6 +30,9 @@ function App() {
               <Route path="/rotas" element={<Rotas />} />
               <Route path="/rotas/:id" element={<RotaDetalhe />} />
               <Route path="/passeios" element={<Passeios />} />
+              <Route path="/passeios/:id" element={<PasseioDetalhe />} />
+              <Route path="/favoritos" element={<Favoritos />} />
+              <Route path="/perfil" element={<Perfil />} />
             </Routes>
           </main>
           <Footer />
