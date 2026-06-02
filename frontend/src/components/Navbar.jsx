@@ -1,4 +1,3 @@
-
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
@@ -22,7 +21,10 @@ export default function Navbar() {
         <Link to="/passeios" className="text-gray-300 hover:text-frevo-yellow transition">Passeios</Link>
         {user ? (
           <div className="flex items-center gap-3">
-            <span className="text-frevo-orange">Olá, {user.name.split(' ')[0]}</span>
+            <Link to="/favoritos" className="text-gray-300 hover:text-frevo-yellow transition">Favoritos</Link>
+            <Link to="/perfil" className="text-frevo-orange hover:text-frevo-yellow transition">
+              Olá, {user.name.split(' ')[0]}
+            </Link>
             <button
               onClick={handleLogout}
               className="bg-frevo-red px-4 py-1.5 rounded-full text-white hover:bg-red-700 transition"
