@@ -8,7 +8,7 @@ export default function RotaDetalhe() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    api.get(/rotas/${id})
+    api.get(`/rotas/${id}`)
       .then((res) => setRota(res.data))
       .finally(() => setLoading(false))
   }, [id])
@@ -40,7 +40,7 @@ export default function RotaDetalhe() {
           <div>
             <span className="text-gray-400">Valor</span>
             <p className="text-frevo-yellow font-bold">
-              {rota.preco === 0 ? 'Gratuito' : R$ ${rota.preco}}
+              {rota.preco === 0 ? 'Gratuito' : `R$ ${rota.preco}`}
             </p>
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function RotaDetalhe() {
                 <p className="text-frevo-yellow text-sm">{'★'.repeat(Math.round(rota.Motorista.avaliacao))} {rota.Motorista.avaliacao}</p>
               </div>
               <Link
-                to={/motoristas/${rota.Motorista.id}}
+                to={`/motoristas/${rota.Motorista.id}`}
                 className="ml-auto border border-frevo-yellow text-frevo-yellow px-4 py-2 rounded-full text-sm font-body hover:bg-frevo-yellow hover:text-frevo-dark transition"
               >
                 Ver perfil
