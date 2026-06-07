@@ -44,28 +44,29 @@ export default function MotoristaDetalhe() {
     }
   }
 
-  if (loading) return <div className="text-center text-gray-400 py-20">Carregando...</div>
-  if (!motorista) return <div className="text-center text-red-400 py-20">Motorista não encontrado</div>
+  if (loading) return <div className="text-center text-frevo-muted py-20">Carregando...</div>
+  if (!motorista) return <div className="text-center text-frevo-red py-20">Motorista não encontrado</div>
 
   const iniciais = motorista.name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase()
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-12">
-      <Link to="/motoristas" className="text-frevo-yellow font-body text-sm hover:underline mb-6 inline-block">
+      <Link to="/motoristas" className="text-frevo-green font-bold font-body text-sm hover:underline mb-6 inline-block">
         ← Voltar para motoristas
       </Link>
 
-      <div className="bg-frevo-card border border-white/10 rounded-2xl p-8 flex flex-col gap-6">
+      <div className="bg-frevo-card border border-frevo-border shadow-sm rounded-2xl p-8 flex flex-col gap-6">
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-5">
-            <div className="w-20 h-20 rounded-full bg-frevo-red/20 border-2 border-frevo-red/30 flex items-center justify-center font-display text-3xl text-frevo-yellow">
+            <div className="w-20 h-20 rounded-full bg-frevo-red/10 border-2 border-frevo-red/20 flex items-center justify-center font-display text-3xl text-frevo-red">
               {iniciais}
             </div>
             <div>
-              <h1 className="font-display text-3xl text-white">{motorista.name}</h1>
+              <h1 className="font-display text-3xl text-frevo-navy">{motorista.name}</h1>
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-frevo-yellow">{'★'.repeat(Math.round(motorista.avaliacao))}</span>
-                <span className="text-gray-400 font-body text-sm">{motorista.avaliacao} · {motorista.totalViagens} viagens</span>
+                {/* Estrelas continuam amarelas, texto cinza */}
+                <span className="text-[#F4D03F]">{'★'.repeat(Math.round(motorista.avaliacao))}</span>
+                <span className="text-frevo-muted font-body text-sm">{motorista.avaliacao} · {motorista.totalViagens} viagens</span>
               </div>
             </div>
           </div>
@@ -75,32 +76,32 @@ export default function MotoristaDetalhe() {
             disabled={loadingFav}
             className={`flex items-center gap-2 px-5 py-3 rounded-full font-body font-bold text-sm transition ${
               favoritado
-                ? 'bg-frevo-yellow text-frevo-dark'
-                : 'border-2 border-frevo-yellow text-frevo-yellow hover:bg-frevo-yellow hover:text-frevo-dark'
+                ? 'bg-frevo-navy text-white'
+                : 'border-2 border-frevo-navy text-frevo-navy hover:bg-frevo-navy hover:text-white'
             }`}
           >
             {favoritado ? '★ Favoritado' : '☆ Favoritar'}
           </button>
         </div>
 
-        <p className="text-gray-300 font-body leading-relaxed">{motorista.bio}</p>
+        <p className="text-frevo-muted font-body leading-relaxed">{motorista.bio}</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-white/5 rounded-xl p-4">
-            <h3 className="font-body text-gray-400 text-sm mb-3">Especialidades</h3>
+          <div className="bg-frevo-bg border border-frevo-border rounded-xl p-4">
+            <h3 className="font-body text-frevo-navy font-bold text-sm mb-3">Especialidades</h3>
             <div className="flex flex-wrap gap-2">
               {motorista.especialidades?.map((esp) => (
-                <span key={esp} className="bg-frevo-red/20 text-frevo-orange border border-frevo-orange/20 px-3 py-1 rounded-full text-xs font-body">
+                <span key={esp} className="bg-frevo-red/10 text-frevo-red border border-frevo-red/20 px-3 py-1 rounded-full text-xs font-body">
                   {esp}
                 </span>
               ))}
             </div>
           </div>
-          <div className="bg-white/5 rounded-xl p-4">
-            <h3 className="font-body text-gray-400 text-sm mb-3">Idiomas</h3>
+          <div className="bg-frevo-bg border border-frevo-border rounded-xl p-4">
+            <h3 className="font-body text-frevo-navy font-bold text-sm mb-3">Idiomas</h3>
             <div className="flex flex-wrap gap-2">
               {motorista.idiomas?.map((idioma) => (
-                <span key={idioma} className="bg-white/5 text-gray-300 border border-white/10 px-3 py-1 rounded-full text-xs font-body">
+                <span key={idioma} className="bg-white border border-frevo-border text-frevo-muted px-3 py-1 rounded-full text-xs font-body">
                   {idioma}
                 </span>
               ))}
@@ -109,9 +110,9 @@ export default function MotoristaDetalhe() {
         </div>
 
         {motorista.telefone && (
-          <div className="border-t border-white/10 pt-4">
-            <p className="text-gray-400 font-body text-sm">Contato</p>
-            <p className="text-white font-body font-bold mt-1">📞 {motorista.telefone}</p>
+          <div className="border-t border-frevo-border pt-4">
+            <p className="text-frevo-muted font-body text-sm">Contato</p>
+            <p className="text-frevo-navy font-body font-bold mt-1">📞 {motorista.telefone}</p>
           </div>
         )}
       </div>

@@ -1,5 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Nunito:wght=400;600;700&display=swap');
 @import "tailwindcss";
+
+@theme {
+  /* Cores novas da paleta de turismo */
+  --color-frevo-navy: #1B3A5C;
+  --color-frevo-green: #2E8B57;
+  --color-frevo-red: #C0392B;
+  --color-frevo-bg: #F7F4EF;
+  --color-frevo-card: #FFFFFF;
+  --color-frevo-border: #E0D9D0;
+  --color-frevo-muted: #7A7265;
+
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Nunito', sans-serif;
+}
 
 * {
   box-sizing: border-box;
@@ -7,7 +21,8 @@
 
 body {
   font-family: 'Nunito', sans-serif;
-  background-color: #1a1a2e;
-  color: #f0f0f0;
+  background-color: var(--color-frevo-bg);
+  color: var(--color-frevo-navy);
   margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
