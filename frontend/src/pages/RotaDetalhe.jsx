@@ -117,6 +117,7 @@ function ModalContato({ rota, user, onClose }) {
   const [sucesso, setSucesso] = useState(false)
   const [erro, setErro] = useState('')
 
+  // AQUI: A lógica de API original foi restaurada.
   const handleEnviar = async () => {
     if (!nome || !email || !mensagem) {
       setErro('Preencha todos os campos')
@@ -124,13 +125,13 @@ function ModalContato({ rota, user, onClose }) {
     }
     setErro('')
     setLoading(true)
-
     try {
-      // Simula uma chamada de API de 1 segundo
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
- 
-      
+      await api.post('/contato', {
+        nome,
+        email,
+        mensagem,
+        rotaId: rota.id,
+      })
       setSucesso(true)
     } catch (err) {
       setErro(err.response?.data?.error || 'Erro ao enviar. Tente novamente.')
@@ -145,7 +146,7 @@ function ModalContato({ rota, user, onClose }) {
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
       <div className="bg-frevo-card border border-frevo-border shadow-2xl rounded-2xl p-8 w-full max-w-md animate-fade-in"
-           onClick={(e) => e.stopPropagation()} // Impede o clique dentro do modal de fechá-lo
+           onClick={(e) => e.stopPropagation()}
       >
         {sucesso ? (
           <div className="text-center flex flex-col items-center gap-4 py-4">
