@@ -4,7 +4,7 @@ const { sequelize, Motorista, Passeio, Rota } = require('./models')
 const motoristas = [
   {
     name: 'Carlos Ferreira',
-    bio: 'Recifense de nascença, apaixonado pela história de Pernambuco. Guia turístico certificado com 10 anos de experiência.',
+    bio: 'Recifense de nascença, apaixonado pela história de Pernambuco. Motorista e guia turístico certificado com 10 anos de experiência.',
     idiomas: ['Português', 'Inglês', 'Espanhol'],
     especialidades: ['Centro Histórico', 'Olinda', 'Gastronomia'],
     avaliacao: 4.9,
@@ -22,8 +22,8 @@ const motoristas = [
   },
   {
     name: 'Roberto Santos',
-    bio: 'Motorista experiente e historiador amador, especialista em cultura popular pernambucana.',
-    idiomas: ['Português'],
+    bio: 'Motorista experiente e historiador amador, tecladista no tempo livre.',
+    idiomas: ['Português', 'Inglês', 'Japonês'],
     especialidades: ['Frevo', 'Maracatu', 'Museus'],
     avaliacao: 4.7,
     totalViagens: 245,
@@ -31,7 +31,7 @@ const motoristas = [
   },
   {
     name: 'Fernanda Oliveira',
-    bio: 'Chef e guia gastronômica, leva turistas aos melhores sabores do Recife.',
+    bio: 'Chef e guia gastronômica, levo turistas aos melhores sabores do Recife e Olinda.',
     idiomas: ['Português', 'Francês'],
     especialidades: ['Gastronomia', 'Mercado de São José', 'Recife Antigo'],
     avaliacao: 5.0,
@@ -40,7 +40,7 @@ const motoristas = [
   },
   {
     name: 'Pedro Alves',
-    bio: 'Surfista e guia especializado nas praias da região metropolitana.',
+    bio: 'Surfista e motorista nas horas vagas.',
     idiomas: ['Português', 'Inglês'],
     especialidades: ['Praias', 'Porto de Galinhas', 'Esportes Aquáticos'],
     avaliacao: 4.6,
