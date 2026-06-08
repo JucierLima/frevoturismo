@@ -4,40 +4,49 @@ import api from '../services/api'
 import { useAuth } from '../context/AuthContext'
 
 export default function Favoritos() {
-  const { user } = useAuth()
+  // 1. Pegamos o 'loading' da autenticação e renomeamos para 'authLoading'
+  const { user, loading: authLoading } = useAuth()
   const navigate = useNavigate()
   const [favoritos, setFavoritos] = useState([])
-  const [loading, setLoading] = useState(true)
+  
+  // 2. Renomeei para não conflitar com o loading da autenticação
+  const [loadingDados, setLoadingDados] = useState(true)
 
   useEffect(() => {
+    // 3. Se o app ainda está lendo o localStorage, não faz NADA. Só espera.
+    if (authLoading) return;
+
+    // Se terminou de ler e não achou usuário, aí sim chuta pro login.
     if (!user) {
       navigate('/login')
       return
     }
+
     // Faz a busca no backend
     api.get('/motoristas/usuario/favoritos')
       .then((res) => {
-        // Garante que o estado seja um array, mesmo se a API der pau
         setFavoritos(Array.isArray(res.data) ? res.data : [])
       })
       .catch((err) => {
         console.error("Erro ao buscar favoritos:", err)
         setFavoritos([])
       })
-      .finally(() => setLoading(false))
-  }, [user, navigate])
+      .finally(() => setLoadingDados(false))
+  }, [user, navigate, authLoading]) // authLoading entrou nas dependências
 
   const handleRemover = async (id) => {
     try {
       await api.post(`/motoristas/${id}/favoritar`)
-      // Remove o motorista da tela instantaneamente após o clique
-      setFavoritos((prev) => prev.filter((m) => m.id !== id))
+      setFavoritos((prev) => prev.filter((m) => m && m.id !== id))
     } catch {
       alert('Erro ao remover favorito')
     }
   }
 
-  if (loading) return <div className="text-center text-frevo-muted py-20">Carregando favoritos...</div>
+  // 4. Mostra carregando enquanto lê o HD do navegador OU enquanto busca na API
+  if (authLoading || loadingDados) {
+    return <div className="text-center text-frevo-muted py-20">Carregando...</div>
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
@@ -62,6 +71,9 @@ export default function Favoritos() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {favoritos.map((motorista) => {
+            // 5. PROTEÇÃO ANTI TELA BRANCA: Se o backend mandar null, ignora o item
+            if (!motorista) return null;
+
             const iniciais = motorista.name?.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase() || 'MT'
             
             return (
