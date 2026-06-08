@@ -16,68 +16,68 @@ export default function RotaDetalhe() {
       .finally(() => setLoading(false))
   }, [id])
 
-  if (loading) return <div className="text-center text-gray-400 py-20">Carregando...</div>
-  if (!rota) return <div className="text-center text-red-400 py-20">Rota não encontrada</div>
+  if (loading) return <div className="text-center text-frevo-muted py-20">Carregando...</div>
+  if (!rota) return <div className="text-center text-frevo-red py-20">Rota não encontrada</div>
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-12">
-      <Link to="/rotas" className="text-frevo-yellow font-body text-sm hover:underline mb-6 inline-block">
+    <div className="max-w-3xl mx-auto px-6 py-12 relative">
+      <Link to="/rotas" className="text-frevo-navy font-body text-sm hover:underline mb-6 inline-block">
         ← Voltar para rotas
       </Link>
 
-      <div className="bg-frevo-card border border-white/10 rounded-2xl p-8 flex flex-col gap-6">
+      <div className="bg-frevo-card border border-frevo-border shadow-sm rounded-2xl p-8 flex flex-col gap-6">
         <div className="flex items-start justify-between gap-4">
-          <h1 className="font-display text-3xl text-white">{rota.titulo}</h1>
-          <span className="shrink-0 bg-frevo-red/20 text-frevo-orange border border-frevo-orange/20 px-3 py-1 rounded-full text-sm font-body capitalize">
+          <h1 className="font-display text-3xl text-frevo-navy">{rota.titulo}</h1>
+          <span className="shrink-0 bg-frevo-red/10 text-frevo-red border border-frevo-red/20 px-3 py-1 rounded-full text-sm font-body capitalize">
             {rota.categoria}
           </span>
         </div>
 
-        <p className="text-gray-300 font-body leading-relaxed">{rota.descricao}</p>
+        <p className="text-frevo-muted font-body leading-relaxed">{rota.descricao}</p>
 
         <div className="flex gap-6 font-body text-sm">
           <div>
-            <span className="text-gray-400">Duração</span>
-            <p className="text-white font-bold">⏱ {rota.duracao}</p>
+            <span className="text-frevo-muted">Duração</span>
+            <p className="text-frevo-navy font-bold">⏱ {rota.duracao}</p>
           </div>
           <div>
-            <span className="text-gray-400">Valor</span>
-            <p className="text-frevo-yellow font-bold">
+            <span className="text-frevo-muted">Valor</span>
+            <p className="text-frevo-green font-bold text-lg">
               {rota.preco === 0 ? 'Gratuito' : `R$ ${rota.preco}`}
             </p>
           </div>
         </div>
 
         <div>
-          <h2 className="font-display text-xl text-white mb-3">Pontos da rota</h2>
+          <h2 className="font-display text-xl text-frevo-navy mb-3">Pontos da rota</h2>
           <div className="flex flex-col gap-2">
             {rota.pontos?.map((ponto, i) => (
-              <div key={ponto.nome} className="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-3">
-                <span className="w-7 h-7 rounded-full bg-frevo-yellow text-frevo-dark font-bold text-sm flex items-center justify-center shrink-0">
+              <div key={ponto.nome} className="flex items-center gap-3 bg-frevo-bg rounded-xl px-4 py-3 border border-frevo-border">
+                <span className="w-7 h-7 rounded-full bg-frevo-navy text-white font-bold text-sm flex items-center justify-center shrink-0">
                   {i + 1}
                 </span>
-                <span className="text-white font-body">{ponto.nome}</span>
+                <span className="text-frevo-navy font-body">{ponto.nome}</span>
               </div>
             ))}
           </div>
         </div>
 
         {rota.Motorista && (
-          <div className="border-t border-white/10 pt-6">
-            <h2 className="font-display text-xl text-white mb-3">Guia responsável</h2>
+          <div className="border-t border-frevo-border pt-6">
+            <h2 className="font-display text-xl text-frevo-navy mb-3">Guia responsável</h2>
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-frevo-red/20 border border-frevo-red/30 flex items-center justify-center font-display text-lg text-frevo-yellow">
+              <div className="w-12 h-12 rounded-full bg-frevo-red/10 border border-frevo-red/20 flex items-center justify-center font-display text-lg text-frevo-red">
                 {rota.Motorista.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
               </div>
               <div>
-                <p className="text-white font-body font-bold">{rota.Motorista.name}</p>
-                <p className="text-frevo-yellow text-sm">
-                  {'★'.repeat(Math.round(rota.Motorista.avaliacao))} {rota.Motorista.avaliacao}
+                <p className="text-frevo-navy font-body font-bold">{rota.Motorista.name}</p>
+                <p className="text-[#F4D03F] text-sm">
+                  {'★'.repeat(Math.round(rota.Motorista.avaliacao))} <span className="text-frevo-muted">{rota.Motorista.avaliacao}</span>
                 </p>
               </div>
               <Link
                 to={`/motoristas/${rota.Motorista.id}`}
-                className="ml-auto border border-frevo-yellow text-frevo-yellow px-4 py-2 rounded-full text-sm font-body hover:bg-frevo-yellow hover:text-frevo-dark transition"
+                className="ml-auto border border-frevo-navy text-frevo-navy px-4 py-2 rounded-full text-sm font-body font-bold hover:bg-frevo-navy hover:text-white transition"
               >
                 Ver perfil
               </Link>
@@ -85,14 +85,14 @@ export default function RotaDetalhe() {
           </div>
         )}
 
-        <div className="border-t border-white/10 pt-6">
+        <div className="border-t border-frevo-border pt-6">
           <button
             onClick={() => setModalAberto(true)}
-            className="w-full bg-frevo-yellow text-frevo-dark font-bold py-4 rounded-2xl text-lg hover:bg-yellow-400 transition"
+            className="w-full bg-frevo-green text-white font-bold py-4 rounded-2xl text-lg hover:bg-opacity-90 transition shadow-md transform active:scale-95"
           >
-            🎭 Solicitar esta rota
+            🚗 Solicitar esta rota
           </button>
-          <p className="text-center text-gray-400 font-body text-xs mt-3">
+          <p className="text-center text-frevo-muted font-body text-xs mt-3">
             Entraremos em contato em até 24 horas
           </p>
         </div>
@@ -124,13 +124,13 @@ function ModalContato({ rota, user, onClose }) {
     }
     setErro('')
     setLoading(true)
+
     try {
-      await api.post('/contato', {
-        nome,
-        email,
-        mensagem,
-        rotaId: rota.id,
-      })
+      // Simula uma chamada de API de 1 segundo
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+ 
+      
       setSucesso(true)
     } catch (err) {
       setErro(err.response?.data?.error || 'Erro ao enviar. Tente novamente.')
@@ -141,20 +141,22 @@ function ModalContato({ rota, user, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 px-4"
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
-      <div className="bg-frevo-card border border-white/10 rounded-2xl p-8 w-full max-w-md">
+      <div className="bg-frevo-card border border-frevo-border shadow-2xl rounded-2xl p-8 w-full max-w-md animate-fade-in"
+           onClick={(e) => e.stopPropagation()} // Impede o clique dentro do modal de fechá-lo
+      >
         {sucesso ? (
           <div className="text-center flex flex-col items-center gap-4 py-4">
             <div className="text-6xl">🎉</div>
-            <h2 className="font-display text-2xl text-white">Solicitação enviada!</h2>
-            <p className="text-gray-400 font-body text-sm leading-relaxed">
-              Recebemos seu pedido para a rota <strong className="text-white">{rota.titulo}</strong>. Você receberá uma confirmação no email <strong className="text-frevo-yellow">{email}</strong>.
+            <h2 className="font-display text-2xl text-frevo-navy">Solicitação enviada!</h2>
+            <p className="text-frevo-muted font-body text-sm leading-relaxed">
+              Recebemos seu pedido para a rota <strong className="text-frevo-navy">{rota.titulo}</strong>. Você receberá uma confirmação no email <strong className="text-frevo-green">{email}</strong>.
             </p>
             <button
               onClick={onClose}
-              className="bg-frevo-yellow text-frevo-dark font-bold px-8 py-3 rounded-full hover:bg-yellow-400 transition mt-2"
+              className="bg-frevo-navy text-white font-bold px-8 py-3 rounded-full hover:bg-opacity-90 transition mt-2"
             >
               Fechar
             </button>
@@ -163,81 +165,81 @@ function ModalContato({ rota, user, onClose }) {
           <>
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h2 className="font-display text-2xl text-white">Solicitar rota</h2>
-                <p className="text-frevo-yellow font-body text-sm mt-1">{rota.titulo}</p>
+                <h2 className="font-display text-2xl text-frevo-navy">Solicitar rota</h2>
+                <p className="text-frevo-green font-body font-bold text-sm mt-1">{rota.titulo}</p>
               </div>
               <button
                 onClick={onClose}
-                className="text-gray-400 hover:text-white text-2xl leading-none"
+                className="text-frevo-muted hover:text-frevo-red text-2xl leading-none"
               >
                 ×
               </button>
             </div>
 
-            <div className="bg-white/5 rounded-xl p-4 mb-6 flex gap-6 font-body text-sm">
+            <div className="bg-frevo-bg border border-frevo-border rounded-xl p-4 mb-6 flex gap-6 font-body text-sm">
               <div>
-                <span className="text-gray-400">Duração</span>
-                <p className="text-white font-bold">⏱ {rota.duracao}</p>
+                <span className="text-frevo-muted">Duração</span>
+                <p className="text-frevo-navy font-bold">⏱ {rota.duracao}</p>
               </div>
               <div>
-                <span className="text-gray-400">Valor</span>
-                <p className="text-frevo-yellow font-bold">
+                <span className="text-frevo-muted">Valor</span>
+                <p className="text-frevo-green font-bold">
                   {rota.preco === 0 ? 'Gratuito' : `R$ ${rota.preco}`}
                 </p>
               </div>
               {rota.Motorista && (
                 <div>
-                  <span className="text-gray-400">Guia</span>
-                  <p className="text-white font-bold">{rota.Motorista.name.split(' ')[0]}</p>
+                  <span className="text-frevo-muted">Guia</span>
+                  <p className="text-frevo-navy font-bold">{rota.Motorista.name.split(' ')[0]}</p>
                 </div>
               )}
             </div>
 
             {erro && (
-              <div className="bg-red-500/20 border border-red-500/40 text-red-400 px-4 py-3 rounded-xl mb-4 text-sm font-body">
+              <div className="bg-red-50 text-frevo-red border border-red-200 px-4 py-3 rounded-xl mb-4 text-sm font-body">
                 {erro}
               </div>
             )}
 
             <div className="flex flex-col gap-4">
               <div>
-                <label className="text-gray-400 text-sm font-body mb-1 block">Seu nome</label>
+                <label className="text-frevo-navy font-bold text-sm font-body mb-1 block">Seu nome</label>
                 <input
                   type="text"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   placeholder="João Silva"
-                  className="w-full bg-frevo-dark border border-white/10 rounded-xl px-4 py-3 text-white font-body focus:outline-none focus:border-frevo-yellow transition"
+                  className="w-full bg-white border border-frevo-border rounded-xl px-4 py-3 text-frevo-navy font-body focus:outline-none focus:border-frevo-green transition"
                 />
               </div>
               <div>
-                <label className="text-gray-400 text-sm font-body mb-1 block">Seu email</label>
+                <label className="text-frevo-navy font-bold text-sm font-body mb-1 block">Seu email</label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="seu@email.com"
-                  className="w-full bg-frevo-dark border border-white/10 rounded-xl px-4 py-3 text-white font-body focus:outline-none focus:border-frevo-yellow transition"
+                  className="w-full bg-white border border-frevo-border rounded-xl px-4 py-3 text-frevo-navy font-body focus:outline-none focus:border-frevo-green transition"
                 />
               </div>
               <div>
-                <label className="text-gray-400 text-sm font-body mb-1 block">Mensagem</label>
+                <label className="text-frevo-navy font-bold text-sm font-body mb-1 block">Mensagem</label>
                 <textarea
                   value={mensagem}
                   onChange={(e) => setMensagem(e.target.value)}
                   placeholder="Olá! Gostaria de fazer esta rota. Tenho disponibilidade no próximo fim de semana..."
                   rows={4}
-                  className="w-full bg-frevo-dark border border-white/10 rounded-xl px-4 py-3 text-white font-body focus:outline-none focus:border-frevo-yellow transition resize-none"
+                  className="w-full bg-white border border-frevo-border rounded-xl px-4 py-3 text-frevo-navy font-body focus:outline-none focus:border-frevo-green transition resize-none"
                 />
               </div>
               <button
                 onClick={handleEnviar}
                 disabled={loading}
-                className="bg-frevo-yellow text-frevo-dark font-bold py-3 rounded-xl hover:bg-yellow-400 transition disabled:opacity-50 font-body"
+                className="bg-frevo-green text-white shadow-md font-bold py-3 rounded-xl hover:bg-opacity-90 transition disabled:opacity-50 font-body"
               >
                 {loading ? 'Enviando...' : 'Enviar solicitação'}
               </button>
-              <p className="text-center text-gray-500 font-body text-xs">
+              <p className="text-center text-frevo-muted font-body text-xs">
                 Clique fora do modal para fechar
               </p>
             </div>

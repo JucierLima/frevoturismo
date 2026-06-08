@@ -5,12 +5,12 @@ import api from '../services/api'
 const categorias = ['todas', 'praia', 'cultura', 'gastronomia', 'historia', 'natureza', 'noturno']
 
 const categoriaCor = {
-  praia: 'bg-blue-900/30 text-blue-400 border-blue-700/30',
-  cultura: 'bg-purple-900/30 text-purple-400 border-purple-700/30',
-  gastronomia: 'bg-orange-900/30 text-orange-400 border-orange-700/30',
-  historia: 'bg-amber-900/30 text-amber-400 border-amber-700/30',
-  natureza: 'bg-green-900/30 text-green-400 border-green-700/30',
-  noturno: 'bg-indigo-900/30 text-indigo-400 border-indigo-700/30',
+  praia: 'bg-blue-50 text-blue-700 border-blue-200',
+  cultura: 'bg-purple-50 text-purple-700 border-purple-200',
+  gastronomia: 'bg-orange-50 text-orange-700 border-orange-200',
+  historia: 'bg-amber-50 text-amber-700 border-amber-200',
+  natureza: 'bg-green-50 text-green-700 border-green-200',
+  noturno: 'bg-indigo-50 text-indigo-700 border-indigo-200',
 }
 
 const categoriaIcone = {
@@ -40,10 +40,10 @@ export default function Passeios() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
       <div className="mb-10 text-center">
-        <h1 className="font-display text-4xl text-white mb-3">
-          Sugestões de <span className="text-frevo-yellow">Passeios</span>
+        <h1 className="font-display text-4xl text-frevo-navy mb-3">
+          Sugestões de <span className="text-frevo-green">Passeios</span>
         </h1>
-        <p className="text-gray-400 font-body max-w-xl mx-auto">
+        <p className="text-frevo-muted font-body max-w-xl mx-auto">
           Descubra os melhores pontos turísticos da Região Metropolitana do Recife com dicas de quem conhece.
         </p>
       </div>
@@ -55,8 +55,8 @@ export default function Passeios() {
             onClick={() => setCategoriaAtiva(cat)}
             className={`px-5 py-2 rounded-full font-body text-sm capitalize transition ${
               categoriaAtiva === cat
-                ? 'bg-frevo-yellow text-frevo-dark font-bold'
-                : 'border border-white/20 text-gray-300 hover:border-frevo-yellow/50'
+                ? 'bg-frevo-navy text-white font-bold shadow-md'
+                : 'bg-white border border-frevo-border text-frevo-muted hover:border-frevo-navy/50'
             }`}
           >
             {categoriaIcone[cat] || '🗺️'} {cat}
@@ -65,11 +65,11 @@ export default function Passeios() {
       </div>
 
       {loading && (
-        <div className="text-center text-gray-400 py-20">Carregando passeios...</div>
+        <div className="text-center text-frevo-muted py-20">Carregando passeios...</div>
       )}
 
       {erro && (
-        <div className="text-center text-red-400 py-20">{erro}</div>
+        <div className="text-center text-frevo-red py-20">{erro}</div>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -79,7 +79,7 @@ export default function Passeios() {
       </div>
 
       {!loading && passeios.length === 0 && !erro && (
-        <div className="text-center text-gray-400 py-20">
+        <div className="text-center text-frevo-muted py-20">
           Nenhum passeio encontrado nessa categoria.
         </div>
       )}
@@ -89,36 +89,36 @@ export default function Passeios() {
 
 function PasseioCard({ passeio }) {
   return (
-    <div className="bg-frevo-card border border-white/10 rounded-2xl p-6 hover:border-frevo-yellow/40 transition flex flex-col gap-4">
+    <div className="bg-frevo-card border border-frevo-border shadow-sm rounded-2xl p-6 hover:shadow-md transition flex flex-col gap-4">
       <div className="flex items-start justify-between gap-3">
         <div>
           <span className="text-3xl mb-2 block">{categoriaIcone[passeio.categoria] || '🗺️'}</span>
-          <h3 className="font-display text-xl text-white">{passeio.titulo}</h3>
-          <p className="text-gray-400 text-sm font-body mt-1">📍 {passeio.local}</p>
+          <h3 className="font-display text-xl text-frevo-navy">{passeio.titulo}</h3>
+          <p className="text-frevo-muted text-sm font-body mt-1">📍 {passeio.local}</p>
         </div>
-        <span className={`shrink-0 border px-3 py-1 rounded-full text-xs font-body capitalize ${categoriaCor[passeio.categoria] || 'bg-white/5 text-gray-400 border-white/10'}`}>
+        <span className={`shrink-0 border px-3 py-1 rounded-full text-xs font-body capitalize ${categoriaCor[passeio.categoria] || 'bg-gray-100 text-gray-600 border-gray-200'}`}>
           {passeio.categoria}
         </span>
       </div>
 
-      <p className="text-gray-400 font-body text-sm leading-relaxed line-clamp-2">
+      <p className="text-frevo-muted font-body text-sm leading-relaxed line-clamp-2">
         {passeio.descricao}
       </p>
 
       {passeio.dica && (
-        <div className="bg-frevo-yellow/10 border border-frevo-yellow/20 rounded-xl px-4 py-3">
-          <p className="text-frevo-yellow text-xs font-body font-bold mb-1">💡 Dica local</p>
-          <p className="text-gray-300 text-xs font-body leading-relaxed">{passeio.dica}</p>
+        <div className="bg-frevo-green/10 border border-frevo-green/20 rounded-xl px-4 py-3">
+          <p className="text-frevo-green text-xs font-body font-bold mb-1">💡 Dica local</p>
+          <p className="text-frevo-navy text-xs font-body leading-relaxed">{passeio.dica}</p>
         </div>
       )}
 
-      <div className="flex items-center justify-between mt-auto pt-3 border-t border-white/10">
-        <span className="text-frevo-yellow font-bold font-body">
+      <div className="flex items-center justify-between mt-auto pt-3 border-t border-frevo-border">
+        <span className="text-frevo-green font-bold font-body">
           {passeio.preco === 0 ? '🆓 Gratuito' : `R$ ${passeio.preco}`}
         </span>
         <Link
           to={`/passeios/${passeio.id}`}
-          className="bg-frevo-yellow text-frevo-dark font-bold px-4 py-2 rounded-full text-sm hover:bg-yellow-400 transition"
+          className="bg-frevo-navy text-white font-bold px-4 py-2 rounded-full text-sm hover:bg-opacity-90 transition"
         >
           Ver detalhes
         </Link>
