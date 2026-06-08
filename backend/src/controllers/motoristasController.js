@@ -58,7 +58,16 @@ const listarFavoritos = async (req, res) => {
       where: { userId: req.userId },
       include: [{ model: Motorista }],
     })
-    const motoristas = favoritos.map((f) => f.Motorista)
+
+    // O pulo do gato: Acha o motorista seja qual for o nome maluco que o Sequelize inventou
+    const motoristas = favoritos
+      .map((f) => {
+        const favBruto = f.get({ plain: true });
+        // Adicionamos o "Motoristum" na lista de possibilidades
+        return favBruto.Motoristum || favBruto.Motorista || favBruto.motorista;
+      })
+      .filter((m) => m != null) 
+
     return res.json(motoristas)
   } catch (err) {
     console.error(err)
