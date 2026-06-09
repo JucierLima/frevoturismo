@@ -49,7 +49,12 @@ export default function Login() {
             />
           </div>
           <div>
-            <label className="text-frevo-blue text-sm font-body font-bold mb-1 block">Senha</label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-frevo-blue text-sm font-body font-bold block">Senha</label>
+              <Link to="/esqueci-senha" className="text-frevo-green text-xs font-bold hover:underline">
+                Esqueceu a senha?
+              </Link>
+            </div>
             <input
               type="password"
               value={password}
