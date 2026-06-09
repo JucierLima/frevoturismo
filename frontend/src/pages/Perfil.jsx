@@ -4,28 +4,38 @@ import api from '../services/api'
 import { useAuth } from '../context/AuthContext'
 
 export default function Perfil() {
-  const { user, logout } = useAuth()
+  // 1. Trouxemos o authLoading de volta para blindar o F5
+  const { user, logout, loading: authLoading } = useAuth()
   const navigate = useNavigate()
   const [totalFavoritos, setTotalFavoritos] = useState(0)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // 2. Trava de segurança: Se ainda tá lendo o navegador, espera!
+    if (authLoading) return;
+
+    // 3. Se acabou de ler e não tem usuário, aí sim vai pro login
     if (!user) {
       navigate('/login')
       return
     }
+
     api.get('/motoristas/usuario/favoritos')
       .then((res) => setTotalFavoritos(res.data.length))
       .catch(() => {})
       .finally(() => setLoading(false))
-  }, [user])
+  }, [user, authLoading, navigate])
 
   const handleLogout = () => {
     logout()
     navigate('/')
   }
 
-  if (!user || loading) return <div className="text-center text-frevo-muted font-body font-bold py-20">Carregando...</div>
+  // 4. Mostra o loading enquanto a autenticação pensa ou a API busca dados
+  if (authLoading || loading) return <div className="text-center text-frevo-muted font-body font-bold py-20">Carregando...</div>
+  
+  // Proteção extra para não quebrar a renderização abaixo
+  if (!user) return null;
 
   const iniciais = user.name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase()
 

@@ -33,7 +33,10 @@ export default function MotoristaDetalhe() {
       alert('Você precisa estar logado para favoritar um motorista.')
       return
     }
-    loadingFav(true)
+    
+    // AQUI ESTAVA O BUG: Corrigido para setLoadingFav
+    setLoadingFav(true) 
+    
     try {
       const res = await api.post(`/motoristas/${id}/favoritar`)
       setFavoritado(res.data.favoritado)
@@ -73,13 +76,13 @@ export default function MotoristaDetalhe() {
           <button
             onClick={handleFavoritar}
             disabled={loadingFav}
-            className={`flex items-center gap-2 px-6 py-3 rounded-full font-body font-black text-sm transition shadow-sm ${
+            className={`flex items-center gap-2 px-6 py-3 rounded-full font-body font-black text-sm transition shadow-sm disabled:opacity-50 ${
               favoritado
                 ? 'bg-frevo-blue text-white'
                 : 'border-2 border-frevo-blue text-frevo-blue bg-white hover:bg-frevo-blue hover:text-white'
             }`}
           >
-            {favoritado ? '★ Favoritado' : '☆ Favoritar'}
+            {loadingFav ? 'Aguarde...' : (favoritado ? '★ Favoritado' : '☆ Favoritar')}
           </button>
         </div>
 
