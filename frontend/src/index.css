@@ -1,18 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Nunito:wght=400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@400;600;700;900&display=swap');
+
 @import "tailwindcss";
 
 @theme {
-  /* Cores novas da paleta de turismo */
-  --color-frevo-navy: #1B3A5C;
-  --color-frevo-green: #2E8B57;
-  --color-frevo-red: #C0392B;
-  --color-frevo-bg: #F7F4EF;
-  --color-frevo-card: #FFFFFF;
-  --color-frevo-border: #E0D9D0;
-  --color-frevo-muted: #7A7265;
-
-  --font-display: 'Playfair Display', serif;
+  /* Fontes atualizadas pelo Jucier */
+  --font-display: 'Poppins', sans-serif;
   --font-body: 'Nunito', sans-serif;
+  --font-nunito: 'Nunito', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+
+  /* Cores base do sistema (Formato HSL do Jucier) */
+  --color-background: hsl(0 0% 98%);
+  --color-foreground: hsl(0 0% 5%);
+  --color-primary: hsl(0 85% 50%);
+  --color-secondary: hsl(215 90% 45%);
+  --color-accent: hsl(48 100% 50%);
+
+  /* Tokens Customizados Frevo Mobi (Cores exatas da Logo) */
+  --color-frevo-red: #D3121A;
+  --color-frevo-blue: #0A51C5;
+  --color-frevo-yellow: #FFD400;
+  --color-frevo-green: #00A64F;
+  --color-frevo-dark: #0A0A0A;
+
+  /* 🛡️ PONTE DE COMPATIBILIDADE: Mantém os nomes antigos mapeados para a paleta nova */
+  /* Isso impede que componentes antigos que usam esses nomes quebrem ou fiquem invisíveis */
+  --color-frevo-navy: #0A51C5;   /* Texto escuro agora assume o Azul Frevo real */
+  --color-frevo-bg: hsl(0 0% 98%);
+  --color-frevo-card: #FFFFFF;
+  --color-frevo-border: #E2E8F0;
+  --color-frevo-muted: #64748B;
+}
+
+:root {
+  --background: 0 0% 98%;
+  --foreground: 0 0% 5%;
+  --radius: 1rem;
+}
+
+.dark {
+  --background: 0 0% 5%;
+  --foreground: 0 0% 98%;
 }
 
 * {
@@ -20,9 +48,9 @@
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
-  background-color: var(--color-frevo-bg);
-  color: var(--color-frevo-navy);
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
   margin: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
 }

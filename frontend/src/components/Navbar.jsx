@@ -12,41 +12,39 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-frevo-card border-b border-frevo-border shadow-sm px-6 py-4 flex items-center justify-between sticky top-0 z-50">
-      
-      {/* Aqui entra a logo substituindo o texto antigo */}
+    <nav className="bg-frevo-blue text-white shadow-md px-6 py-4 flex items-center justify-between sticky top-0 z-50">
       <Link to="/" className="flex items-center transition transform hover:scale-105">
         <img 
           src={frevoLogo} 
           alt="Frevo Turismo Logo" 
-          className="h-8 md:h-10 w-auto object-contain" 
+          className="h-8 md:h-10 w-auto object-contain brightness-110" 
         />
       </Link>
 
       <div className="flex gap-6 items-center font-body text-sm">
-        <Link to="/rotas" className="text-frevo-navy font-medium hover:text-frevo-green transition">Rotas</Link>
-        <Link to="/motoristas" className="text-frevo-navy font-medium hover:text-frevo-green transition">Motoristas</Link>
-        <Link to="/passeios" className="text-frevo-navy font-medium hover:text-frevo-green transition">Passeios</Link>
+        <Link to="/rotas" className="text-white font-semibold hover:text-frevo-yellow transition">Rotas</Link>
+        <Link to="/motoristas" className="text-white font-semibold hover:text-frevo-yellow transition">Motoristas</Link>
+        <Link to="/passeios" className="text-white font-semibold hover:text-frevo-yellow transition">Passeios</Link>
         
         {user ? (
           <div className="flex items-center gap-4">
-            <Link to="/favoritos" className="text-frevo-navy font-medium hover:text-frevo-green transition">Favoritos</Link>
-            <Link to="/perfil" className="text-frevo-green font-bold hover:text-frevo-navy transition">
+            <Link to="/favoritos" className="text-white font-semibold hover:text-frevo-yellow transition">Favoritos</Link>
+            <Link to="/perfil" className="text-frevo-yellow font-bold hover:underline transition">
               Olá, {user.name.split(' ')[0]}
             </Link>
             <button
               onClick={handleLogout}
-              className="bg-red-50 border border-red-200 text-frevo-red px-4 py-1.5 rounded-full font-bold hover:bg-red-100 transition"
+              className="bg-white/10 border border-white/20 text-white px-4 py-1.5 rounded-full font-bold hover:bg-frevo-red hover:border-transparent transition"
             >
               Sair
             </button>
           </div>
         ) : (
           <div className="flex gap-3">
-            <Link to="/login" className="border border-frevo-navy text-frevo-navy px-4 py-1.5 rounded-full font-bold hover:bg-frevo-navy hover:text-white transition">
+            <Link to="/login" className="border-2 border-white text-white px-4 py-1.5 rounded-full font-bold hover:bg-white hover:text-frevo-blue transition">
               Entrar
             </Link>
-            <Link to="/register" className="bg-frevo-green text-white px-4 py-1.5 rounded-full font-bold hover:bg-opacity-90 shadow-sm transition">
+            <Link to="/register" className="bg-frevo-red text-white px-4 py-1.5 rounded-full font-bold hover:bg-opacity-90 shadow-md transition">
               Cadastrar
             </Link>
           </div>
