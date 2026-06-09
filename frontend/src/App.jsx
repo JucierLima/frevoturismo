@@ -4,6 +4,8 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import EsqueciSenha from './pages/EsqueciSenha' // NOVO
+import NovaSenha from './pages/NovaSenha'       // NOVO
 import Motoristas from './pages/Motoristas'
 import MotoristaDetalhe from './pages/MotoristaDetalhe'
 import Rotas from './pages/Rotas'
@@ -25,6 +27,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/esqueci-senha" element={<EsqueciSenha />} /> 
+              <Route path="/nova-senha" element={<NovaSenha />} />       
               <Route path="/motoristas" element={<Motoristas />} />
               <Route path="/motoristas/:id" element={<MotoristaDetalhe />} />
               <Route path="/rotas" element={<Rotas />} />
