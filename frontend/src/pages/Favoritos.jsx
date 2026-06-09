@@ -28,11 +28,16 @@ export default function Favoritos() {
       .finally(() => setLoadingDados(false))
   }, [user, navigate, authLoading])
 
-  const handleRemover = async (id) => {
+  // Função refatorada com prevenção de evento e validação de ID
+  const handleRemover = async (e, id) => {
+    e.preventDefault(); // Impede que o clique se perca no HTML
+    if (!id) return;
+
     try {
       await api.post(`/motoristas/${id}/favoritar`)
       setFavorites((prev) => prev.filter((m) => m && m.id !== id))
-    } catch {
+    } catch (error) {
+      console.error(error);
       alert('Erro ao remover favorito')
     }
   }
@@ -64,7 +69,8 @@ export default function Favoritos() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {favorites.map((motorista) => {
-            if (!motorista) return null;
+            // Proteção estrita: se não tem o ID do motorista, não renderiza o card quebrado
+            if (!motorista || !motorista.id) return null;
 
             const iniciais = motorista.name?.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase() || 'MT'
             
@@ -99,7 +105,7 @@ export default function Favoritos() {
                     Ver perfil
                   </Link>
                   <button
-                    onClick={() => handleRemover(motorista.id)}
+                    onClick={(e) => handleRemover(e, motorista.id)}
                     className="bg-red-50 border border-red-200 text-frevo-red font-black px-5 py-2.5 rounded-full text-sm hover:bg-red-100 transition"
                   >
                     Remover
