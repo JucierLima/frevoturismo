@@ -25,52 +25,57 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="bg-frevo-card border border-white/10 rounded-2xl p-8 w-full max-w-md">
-        <h1 className="font-display text-3xl text-white mb-2">Bem-vindo de volta</h1>
-        <p className="text-gray-400 font-body mb-8">Entre na sua conta Frevo Turismo</p>
+    <div className="min-h-[80vh] flex items-center justify-center px-4 bg-frevo-bg">
+      <div className="bg-white border border-frevo-border shadow-lg rounded-2xl p-8 w-full max-w-md">
+        <h1 className="font-display text-3xl font-black text-frevo-blue mb-2">Bem-vindo de volta</h1>
+        <p className="text-frevo-muted font-body mb-8 font-medium">Entre na sua conta Frevo Turismo</p>
 
         {error && (
-          <div className="bg-red-500/20 border border-red-500/40 text-red-400 px-4 py-3 rounded-xl mb-6 text-sm">
+          <div className="bg-red-50 text-frevo-red border border-red-200 px-4 py-3 rounded-xl mb-6 text-sm font-semibold">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label className="text-gray-400 text-sm font-body mb-1 block">Email</label>
+            <label className="text-frevo-blue text-sm font-body font-bold mb-1 block">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="seu@email.com"
               required
-              className="w-full bg-frevo-dark border border-white/10 rounded-xl px-4 py-3 text-white font-body focus:outline-none focus:border-frevo-yellow transition"
+              className="w-full bg-frevo-bg border border-frevo-border rounded-xl px-4 py-3 text-frevo-blue font-body font-medium focus:outline-none focus:border-frevo-blue transition"
             />
           </div>
           <div>
-            <label className="text-gray-400 text-sm font-body mb-1 block">Senha</label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-frevo-blue text-sm font-body font-bold block">Senha</label>
+              <Link to="/esqueci-senha" className="text-frevo-green text-xs font-bold hover:underline">
+                Esqueceu a senha?
+              </Link>
+            </div>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               required
-              className="w-full bg-frevo-dark border border-white/10 rounded-xl px-4 py-3 text-white font-body focus:outline-none focus:border-frevo-yellow transition"
+              className="w-full bg-frevo-bg border border-frevo-border rounded-xl px-4 py-3 text-frevo-blue font-body font-medium focus:outline-none focus:border-frevo-blue transition"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="bg-frevo-yellow text-frevo-dark font-bold py-3 rounded-xl hover:bg-yellow-400 transition mt-2 disabled:opacity-50"
+            className="bg-frevo-blue text-white font-black py-3 rounded-xl hover:bg-opacity-90 transition mt-2 disabled:opacity-50 shadow-md transform hover:scale-[1.01]"
           >
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
 
-        <p className="text-center text-gray-400 font-body mt-6 text-sm">
+        <p className="text-center text-frevo-muted font-body mt-6 text-sm font-medium">
           Não tem conta?{' '}
-          <Link to="/register" className="text-frevo-yellow hover:underline">
+          <Link to="/register" className="text-frevo-green font-black hover:underline ml-1">
             Cadastre-se
           </Link>
         </p>

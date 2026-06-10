@@ -1,0 +1,93 @@
+import { useState, useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import api from '../services/api'
+import { useAuth } from '../context/AuthContext'
+
+export default function Perfil() {
+  // 1. Trouxemos o authLoading de volta para blindar o F5
+  const { user, logout, loading: authLoading } = useAuth()
+  const navigate = useNavigate()
+  const [totalFavoritos, setTotalFavoritos] = useState(0)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    // 2. Trava de segurança: Se ainda tá lendo o navegador, espera!
+    if (authLoading) return;
+
+    // 3. Se acabou de ler e não tem usuário, aí sim vai pro login
+    if (!user) {
+      navigate('/login')
+      return
+    }
+
+    api.get('/motoristas/usuario/favoritos')
+      .then((res) => setTotalFavoritos(res.data.length))
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [user, authLoading, navigate])
+
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+  }
+
+  // 4. Mostra o loading enquanto a autenticação pensa ou a API busca dados
+  if (authLoading || loading) return <div className="text-center text-frevo-muted font-body font-bold py-20">Carregando...</div>
+  
+  // Proteção extra para não quebrar a renderização abaixo
+  if (!user) return null;
+
+  const iniciais = user.name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase()
+
+  return (
+    <div className="max-w-2xl mx-auto px-6 py-12 bg-white">
+      <h1 className="font-display text-4xl font-black text-frevo-blue mb-8">
+        Meu <span className="text-frevo-green">Perfil</span>
+      </h1>
+
+      <div className="bg-white border border-frevo-border shadow-lg rounded-2xl p-8 flex flex-col gap-6 border-t-4 border-t-frevo-blue">
+        <div className="flex items-center gap-5">
+          <div className="w-20 h-20 rounded-full bg-frevo-red/10 border-2 border-frevo-red/20 flex items-center justify-center font-display text-3xl font-black text-frevo-red">
+            {iniciais}
+          </div>
+          <div>
+            <h2 className="font-display text-2xl font-black text-frevo-blue">{user.name}</h2>
+            <p className="text-frevo-muted font-body text-sm font-semibold mt-1">{user.email}</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-frevo-blue/5 border border-frevo-blue/10 rounded-xl p-4 text-center shadow-sm">
+            <p className="text-3xl font-display font-black text-[#FFD400]">{totalFavoritos}</p>
+            <p className="text-frevo-blue font-body text-xs font-bold mt-1">Motoristas favoritos</p>
+          </div>
+          <div className="bg-frevo-blue/5 border border-frevo-blue/10 rounded-xl p-4 text-center shadow-sm">
+            <p className="text-3xl font-display text-frevo-green">🎭</p>
+            <p className="text-frevo-blue font-body text-xs font-bold mt-1">Viajante Frevo</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 border-t border-frevo-border pt-5">
+          <Link
+            to="/favoritos"
+            className="w-full text-center bg-frevo-green text-white px-6 py-3 rounded-full font-body font-black hover:bg-opacity-90 transition shadow-md"
+          >
+            Ver meus favoritos ⭐
+          </Link>
+          <Link
+            to="/motoristas"
+            className="w-full text-center bg-white border-2 border-frevo-blue text-frevo-blue px-6 py-3 rounded-full font-body font-black hover:bg-frevo-blue hover:text-white transition"
+          >
+            Explorar motoristas
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="w-full border border-red-200 bg-red-50 text-frevo-red px-6 py-3 rounded-full font-body font-black hover:bg-red-100 transition"
+          >
+            Sair da conta
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
